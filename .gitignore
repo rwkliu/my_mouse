@@ -1,0 +1,13 @@
+my_mouse
+.helpers.c.un~
+.helpers.h.un~
+*.swp
+*.un~
+*~
+args
+test
+*.o
+.vscode/settings.json
+lsan.supp
+*_cmocka
+cmocka_template.c
