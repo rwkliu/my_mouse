@@ -11,3 +11,4 @@ test
 lsan.supp
 *_cmocka
 cmocka_template.c
+.DS_Store
