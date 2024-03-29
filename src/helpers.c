@@ -1,3 +1,20 @@
+#include <string.h>
+
+int my_recursive_pow(int base, int power) {
+  int ans;
+  if(power == 0) {
+    return 1;
+  }
+
+  if(power == 1) {
+    ans = base;
+  }
+  else {
+    ans = base * my_recursive_pow(base, power - 1);
+  }
+  return ans;
+}
+
 int my_atoi(char *num_string) {
   int integer = 0;
   int sign = 1;
