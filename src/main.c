@@ -8,7 +8,7 @@ typedef struct s_maze {
   int row;
   int col;
   char *maze;
-} maze;
+} maze_s;
 
 int get_integer(char *int_string, int start, int end) {
   int num_digits = end - start;
@@ -19,7 +19,7 @@ int get_integer(char *int_string, int start, int end) {
   return result;
 }
 
-int get_maze_size(char *maze_size_string) {
+maze_s *get_maze_size(char *maze_size_string, maze_s *maze_struct) {
   int row = 0;
   int col = 0;
   int start = 0;
@@ -38,14 +38,17 @@ int get_maze_size(char *maze_size_string) {
     end++;
   }
 
-  return col;
+  maze_struct->row = row;
+  maze_struct->col = col;
+
+  return maze_struct;
 }
 
 int main(int argc, char **argv) {
   int fd = open_file(argv[1]);
-  char *maze_size = read_one_line(fd);
-  // printf("%s\n", maze_size);
-  int row_end = get_maze_size(maze_size);
-  printf("%d\n", row_end);
+  struct s_maze maze;
+  char *maze_size_string = read_one_line(fd);
+  get_maze_size(maze_size_string, &maze);
+  free(maze_size_string);
   return 0;
 }
