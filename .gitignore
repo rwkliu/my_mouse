@@ -12,3 +12,4 @@ lsan.supp
 *_cmocka
 cmocka_template.c
 .DS_Store
+maps/01_solved.map
