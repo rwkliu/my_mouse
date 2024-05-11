@@ -11,9 +11,11 @@ int main(int argc, char **argv) {
     printf("Error reading file\n");
     return 1;
   }
-  struct s_maze maze;
-  char *maze_size_string = read_one_line(fd);
-  get_maze_size(maze_size_string, &maze);
-  free(maze_size_string);
+  maze_s *maze_1 = initialize_maze(fd);
+  printf("rows: %d\n", maze_1->row);
+  printf("cols: %d\n", maze_1->col);
+  print_maze(maze_1);
+
+  free_maze(maze_1);
   return 0;
 }
