@@ -4,6 +4,10 @@
 typedef struct s_maze {
   int row;
   int col;
+  int start_row;
+  int start_col;
+  int end_row;
+  int end_col;
   char **maze;
 } maze_s;
 

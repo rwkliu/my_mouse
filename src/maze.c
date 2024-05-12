@@ -40,6 +40,30 @@ maze_s *get_maze_size(char *maze_size_string, maze_s *maze_struct) {
   return maze_struct;
 }
 
+maze_s *get_start_end(maze_s *maze) {
+    char *top = maze->maze[0];
+    char *bottom = maze->maze[maze->row - 1];
+    int row_len = strlen(top);
+
+    // Assign the start point
+    for (int i = 0; i < row_len; i++) {
+        if (top[i] == '1') {
+            maze->start_row = 0;
+            maze->start_col = i;
+            break;
+        }
+    }
+    // Assign the end point
+    for (int i = 0; i < row_len; i++) {
+        if (bottom[i] == '2') {
+            maze->end_row = maze->row - 1;
+            maze->end_col = i;
+            break;
+        }
+    }
+    return maze;
+}
+
 maze_s *initialize_maze(int fd) {
     maze_s *maze_struct = malloc(sizeof(maze_s));
     char *first_line = read_one_line(fd);
@@ -56,6 +80,7 @@ maze_s *initialize_maze(int fd) {
         free(row_string);
         row++;
     }
+    maze_struct = get_start_end(maze_struct);
 
     free(first_line);
     return maze_struct;
