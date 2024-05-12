@@ -15,6 +15,8 @@ int main(int argc, char **argv) {
   printf("rows: %d\n", maze_1->row);
   printf("cols: %d\n", maze_1->col);
   print_maze(maze_1);
+  printf("start row: %d, start col: %d\n", maze_1->start_row, maze_1->start_col);
+  printf("end row: %d, end col: %d\n", maze_1->end_row, maze_1->end_col);
 
   free_maze(maze_1);
   return 0;
