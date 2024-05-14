@@ -4,6 +4,7 @@
 typedef struct {
     int row;
     int col;
+    coord *next;
 }   coord;
 
 coord *coord_new();
