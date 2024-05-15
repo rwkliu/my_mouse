@@ -25,3 +25,12 @@ coord_array *coord_array_add(int new_row, int new_col, coord_array *coords) {
 int coord_array_contains(int row, int col, coord_array *coords) {
     return 1;
 }
+
+void coord_array_print_coords(coord_array *coords) {
+    coord *coord_ptr = coords->coord_list;
+
+    while (coord_ptr) {
+        printf("row: %d, col: %d\n", coord_ptr->row, coord_ptr->col);
+        coord_ptr = coord_ptr->next;
+    }
+}
