@@ -23,7 +23,15 @@ coord_array *coord_array_add(int new_row, int new_col, coord_array *coords) {
 }
 
 int coord_array_contains(int row, int col, coord_array *coords) {
-    return 1;
+    coord *coord_ptr = coords->coord_list;
+
+    while (coord_ptr) {
+        if (coord_ptr->row == row && coord_ptr->col == col) {
+            return 1;
+        }
+        coord_ptr = coord_ptr->next;
+    }
+    return 0;
 }
 
 void coord_array_print_coords(coord_array *coords) {
