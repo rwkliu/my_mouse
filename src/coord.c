@@ -10,6 +10,10 @@ coord *coord_new(int row, int col) {
 }
 
 void coord_free(coord *coord_s) {
+    if (coord_s == NULL) {
+        return;
+    }
+
     coord *coord_ptr = coord_s;
     coord *coord_to_delete = coord_s;
 

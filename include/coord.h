@@ -1,10 +1,10 @@
 #ifndef COORD_H
 #define COORD_H
 
-typedef struct {
+typedef struct s_coord {
     int row;
     int col;
-    coord *next;
+    struct s_coord *next;
 }   coord;
 
 coord *coord_new(int row, int col);
