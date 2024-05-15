@@ -7,7 +7,7 @@ typedef struct {
     coord *next;
 }   coord;
 
-coord *coord_new();
+coord *coord_new(int row, int col);
 void coord_free(coord *coord_s);
 
 #endif
