@@ -22,5 +22,4 @@ void coord_free(coord *coord_s) {
         free(coord_to_delete);
         coord_to_delete = coord_ptr;
     }
-    free(coord_s);
 }
