@@ -20,6 +20,9 @@ int main(int argc, char **argv) {
     printf("end row: %d, end col: %d\n", maze_1->end_row, maze_1->end_col);
 
     coord_array *visited = coord_array_new();
+    coord_array_add(0,0,visited);
+    coord_array_add(1,1,visited);
+    coord_array_print_coords(visited);
     coord_array_free(visited);
 
     free_maze(maze_1);
