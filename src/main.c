@@ -15,11 +15,18 @@ int main(int argc, char **argv) {
     }
     maze_s *maze_1 = initialize_maze(fd);
     coord_array *visited = coord_array_new();
-    coord_array_add(0, 0, visited);
-    coord_array_add(1, 1, visited);
-    printf("%d\n", coord_array_contains(0,0,visited));
-    printf("%d\n", coord_array_contains(1,0,visited));
+    queue_t *queue = NULL;
 
+    queue = queue_enqueue(queue, 0, 0);
+    queue = queue_enqueue(queue, 1, 1);
+    queue_print(queue);
+
+    coord *de_coord = queue_dequeue(&queue);
+    printf("popped row: %d, popped col: %d\n", de_coord->row, de_coord->col);
+    coord_free(de_coord);
+    queue_print(queue);
+
+    queue_free(queue);
     coord_array_free(visited);
     free_maze(maze_1);
     return 0;
