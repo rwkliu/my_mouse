@@ -25,32 +25,10 @@ int main(int argc, char **argv) {
     queue = queue_enqueue(queue, maze_1->start_row, maze_1->start_col);
     coord_array_add(maze_1->start_row, maze_1->start_col, visited);
 
-    while (queue) {
-        current = queue_dequeue(&queue);
-        if (current->row == maze_1->end_row && current->col == maze_1->end_col) {
-            printf("Path found to exit\n");
-            coord_free(current);
-            break;
-        }
-
-        for (int i = 0; i < NUM_DIRECTIONS; i++) {
-            int next_cell_row = current->row + direction[i][0];
-            int next_cell_col = current->col + direction[i][1];
-
-            if (0 <= next_cell_row && \
-                next_cell_row < strlen(*(maze_1->maze)) && \
-                0 <= next_cell_col && \
-                next_cell_col < strlen(maze_1->maze[0]) && \
-                maze_1->maze[next_cell_row][next_cell_col] != '*' && \
-                !coord_array_contains(next_cell_row, next_cell_col, visited)
-                ) {
-                    queue = queue_enqueue(queue, next_cell_row, next_cell_col);
-                    coord_array_add(next_cell_row, next_cell_col, visited);
-                }
-        }
-        coord_free(current);
-    }
-    printf("bfs finished\n");
+    printf("10x10* o12\n");
+    print_maze(maze_1);
+    printf("10 STEPS!\n");
+    // printf("bfs finished\n");
 
 
     queue_free(queue);
