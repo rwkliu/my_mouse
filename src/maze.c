@@ -110,14 +110,26 @@ int validate_maze(maze_s *maze) {
         for (int j = 0; j < maze->col; j++) {
             if (maze->maze[i][j] == '1') {
                 starts++;
-                if (starts > 1) {
-                    return 0;
-                }
             }   else if (maze->maze[i][j] == '2') {
                 ends++;
-                if (ends > 1) {
-                    return 0;
-                }
+            }
+        }
+    }
+    if (starts != 1) {
+        return 0;
+    }
+    if (ends != 1) {
+        return 0;
+    }
+
+    for (int i = 0; i < maze->row; i++) {
+        for (int j = 0; j < maze->col; j++) {
+            if (maze->maze[i][j] == '\0' && \
+                    maze->maze[i][j] != ' ' && \
+                    maze->maze[i][j] != '1' && \
+                    maze->maze[i][j] != '2'
+            ) {
+                return 0;
             }
         }
     }
