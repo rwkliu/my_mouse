@@ -2,19 +2,17 @@
 ***
 
 ## Task
-TODO - What is the problem? And where is the challenge?
+The objective of the my_mouse project is to write a maze-solving program. Given a text file with the first line describing the size of the maze and the valid characters of the maze, the output of the program is the solved maze with the shortest path drawn between the start and end points.
 
 ## Description
-TODO - How have you solved the problem?
+The maze solving algorithm utilized in this program was breadth-first search. This algorithm finds the path by expanding evenly in all directions, exploring neighboring path nodes before moving on to the next level of neighbors. Once the exit is found, the shortest path is drawn on the maze by tracing back the path until the start point is reached.
 
 ## Installation
-TODO - How to install your project? npm install? make? make re?
+To compile this program, type `make`
 
 ## Usage
-TODO - How does it work?
-```
-./my_project argument1 argument2
-```
+To run the program with a maze file, run the following command: 
+`./my_mouse <path to map file>`
 
 ### The Core Team
 
