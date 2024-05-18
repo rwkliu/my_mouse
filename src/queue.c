@@ -42,8 +42,9 @@ void queue_free(queue_t *queue) {
 
   while (node_to_delete) {
     queue->head = node_to_delete->next;
-    if (node_to_delete->prev) {
+    if (node_to_delete->prev != NULL) {
       free(node_to_delete->prev);
+      node_to_delete->prev = NULL;
     }
     free(node_to_delete);
     node_to_delete = queue->head;
