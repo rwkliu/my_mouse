@@ -22,8 +22,8 @@ int main(int argc, char **argv) {
     node *end = NULL;
 
     if (validate_maze(maze_1) == 0) {
-        printf("MAP ERROR\n");
-        return 0;
+        fprintf(stderr, "MAP ERROR");
+        return 1;
     }   else {
         int direction[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
         queue = queue_enqueue(queue, maze_1->start_row, maze_1->start_col, 0, NULL);
