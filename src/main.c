@@ -17,40 +17,13 @@ int main(int argc, char **argv) {
     }
     maze_s *maze_1 = initialize_maze(fd);
     coord_array *visited = coord_array_new();
-    queue_t *queue = NULL;
-    coord *current = NULL;
+    queue_t *queue = queue_new();
+    node *current = NULL;
 
 
     int direction[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    queue = queue_enqueue(queue, maze_1->start_row, maze_1->start_col);
+    queue = queue_enqueue(queue, maze_1->start_row, maze_1->start_col, 0, NULL);
     coord_array_add(maze_1->start_row, maze_1->start_col, visited);
-
-    while (queue) {
-        current = queue_dequeue(&queue);
-        if (current->row == maze_1->end_row && current->col == maze_1->end_col) {
-            printf("Path found to exit\n");
-            coord_free(current);
-            break;
-        }
-
-        for (int i = 0; i < NUM_DIRECTIONS; i++) {
-            int next_cell_row = current->row + direction[i][0];
-            int next_cell_col = current->col + direction[i][1];
-
-            if (0 <= next_cell_row && \
-                next_cell_row < strlen(*(maze_1->maze)) && \
-                0 <= next_cell_col && \
-                next_cell_col < strlen(maze_1->maze[0]) && \
-                maze_1->maze[next_cell_row][next_cell_col] != '*' && \
-                !coord_array_contains(next_cell_row, next_cell_col, visited)
-                ) {
-                    queue = queue_enqueue(queue, next_cell_row, next_cell_col);
-                    coord_array_add(next_cell_row, next_cell_col, visited);
-                }
-        }
-        coord_free(current);
-    }
-    printf("bfs finished\n");
 
 
     queue_free(queue);
