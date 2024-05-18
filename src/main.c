@@ -17,6 +17,7 @@ int main(int argc, char **argv) {
 
     if (validate_maze(maze_1) == 0) {
         fprintf(stderr, "MAP ERROR");
+        free_maze(maze_1);
         return 1;
     }   else {
         solve_maze(maze_1);
