@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         int curr_dist = current->distance;
 
         if (curr_row == maze_1->end_row && curr_col == maze_1->end_col) {
-            printf("%s", maze_1->header);
+            printf("%s\n", maze_1->header);
             end = current;
             while (end != NULL) {
                 int row = end->row;
@@ -43,14 +43,14 @@ int main(int argc, char **argv) {
                     maze_1->maze[end->row][end->col] = 'o';
                 }
                 end = end->prev;
-                print_maze(maze_1);
             }
             // return curr_dist - 1;
-            printf("steps: %d\n", curr_dist);
+            print_maze(maze_1);
+            printf("%d STEPS\n", curr_dist);
             free(current);
             break;
         }
-        
+
         for (int i = 0; i < NUM_DIRECTIONS; i++) {
             int new_row = curr_row + direction[i][0];
             int new_col = curr_col + direction[i][1];
