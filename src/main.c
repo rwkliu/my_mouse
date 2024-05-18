@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
                     new_row < maze_1->row && \
                     0 <= new_col && \
                     new_col < maze_1->col && \
-                    maze_1->maze[new_row][new_col] != 'x' && \
+                    maze_1->maze[new_row][new_col] != '*' && \
                     !coord_array_contains(new_row, new_col, visited)
             ) {
                 queue = queue_enqueue(queue, new_row, new_col, curr_dist + 1, current);
