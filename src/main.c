@@ -31,7 +31,26 @@ int main(int argc, char **argv) {
         int curr_row = current->row;
         int curr_col = current->col;
         int curr_dist = current->distance;
+        node *new_current = node_new(curr_row, curr_col, curr_dist, current->next, current->prev);
         free(current);
+        current = new_current;
+
+        if (curr_row == maze_1->end_row && curr_col == maze_1->end_col) {
+            end = current;
+            while (end != NULL) {
+                int row = end->row;
+                int col = end->col;
+
+                if ((row != maze_1->start_row || col != maze_1->start_col) && (row != maze_1->end_row || col != maze_1->end_col)) {
+                    maze_1->maze[end->row][end->col] = 'o';
+                }
+                end = end->prev;
+                print_maze(maze_1);
+            }
+            // return curr_dist - 1;
+            printf("steps: %d\n", curr_dist);
+            break;
+        }
 
         for (int i = 0; i < NUM_DIRECTIONS; i++) {
             int new_row = curr_row + direction[i][0];
@@ -49,7 +68,6 @@ int main(int argc, char **argv) {
             }
         }
     }
-
 
     queue_free(queue);
     coord_array_free(visited);
