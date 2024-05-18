@@ -18,5 +18,6 @@ maze_s *initialize_maze(int fd);
 void print_maze(maze_s *maze);
 void free_maze(maze_s *maze);
 int validate_maze(maze_s *maze);
+void solve_maze(maze_s *maze);
 
 #endif
