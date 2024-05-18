@@ -31,11 +31,9 @@ int main(int argc, char **argv) {
         int curr_row = current->row;
         int curr_col = current->col;
         int curr_dist = current->distance;
-        node *new_current = node_new(curr_row, curr_col, curr_dist, current->next, current->prev);
-        free(current);
-        current = new_current;
 
         if (curr_row == maze_1->end_row && curr_col == maze_1->end_col) {
+            printf("%s", maze_1->header);
             end = current;
             while (end != NULL) {
                 int row = end->row;
@@ -49,9 +47,10 @@ int main(int argc, char **argv) {
             }
             // return curr_dist - 1;
             printf("steps: %d\n", curr_dist);
+            free(current);
             break;
         }
-
+        
         for (int i = 0; i < NUM_DIRECTIONS; i++) {
             int new_row = curr_row + direction[i][0];
             int new_col = curr_col + direction[i][1];
@@ -63,12 +62,13 @@ int main(int argc, char **argv) {
                     maze_1->maze[new_row][new_col] != '*' && \
                     !coord_array_contains(new_row, new_col, visited)
             ) {
-                queue = queue_enqueue(queue, new_row, new_col, curr_dist + 1, current);
+                node *new_current = node_new(curr_row, curr_col, curr_dist, current->next, current->prev);
+                queue = queue_enqueue(queue, new_row, new_col, curr_dist + 1, new_current);
                 coord_array_add(new_row, new_col, visited);
             }
         }
+        free(current);
     }
-
     queue_free(queue);
     coord_array_free(visited);
     free_maze(maze_1);

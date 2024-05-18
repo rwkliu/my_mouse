@@ -66,8 +66,8 @@ maze_s *get_start_end(maze_s *maze) {
 
 maze_s *initialize_maze(int fd) {
     maze_s *maze_struct = malloc(sizeof(maze_s));
-    char *first_line = read_one_line(fd);
-    maze_struct = get_maze_size(first_line, maze_struct);
+    maze_struct->header = read_one_line(fd);
+    maze_struct = get_maze_size(maze_struct->header, maze_struct);
     maze_struct->maze = malloc(maze_struct->row * sizeof(char *));
 
     char *row_string = NULL;
@@ -82,7 +82,6 @@ maze_s *initialize_maze(int fd) {
     }
     maze_struct = get_start_end(maze_struct);
 
-    free(first_line);
     return maze_struct;
 }
 
@@ -92,6 +91,7 @@ void free_maze(maze_s *maze) {
         free(maze->maze[i]);
         i++;
     }
+    free(maze->header);
     free(maze->maze);
     free(maze);
 }

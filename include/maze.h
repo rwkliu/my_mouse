@@ -8,6 +8,7 @@ typedef struct s_maze {
   int start_col;
   int end_row;
   int end_col;
+  char *header;
   char **maze;
 } maze_s;
 
