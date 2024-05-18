@@ -101,3 +101,25 @@ void print_maze(maze_s *maze) {
         printf("%s\n", maze->maze[i]);
     }
 }
+
+int validate_maze(maze_s *maze) {
+    int starts = 0;
+    int ends = 0;
+
+    for (int i = 0; i < maze->row; i++) {
+        for (int j = 0; j < maze->col; j++) {
+            if (maze->maze[i][j] == '1') {
+                starts++;
+                if (starts > 1) {
+                    return 0;
+                }
+            }   else if (maze->maze[i][j] == '2') {
+                ends++;
+                if (ends > 1) {
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
+}
