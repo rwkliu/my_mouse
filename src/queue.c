@@ -12,12 +12,7 @@ queue_t *queue_new() {
 
 queue_t *queue_enqueue(queue_t *queue, int row, int col, int distance, node *prev_node) {
   node *node_ptr = queue->head;
-  node *new_node = malloc(sizeof(node));
-  new_node->row = row;
-  new_node->col = col;
-  new_node->distance = distance;
-  new_node->prev = prev_node;
-  new_node->next = NULL;
+  node *new_node = node_new(row, col, distance, NULL, prev_node);
 
   if (node_ptr == NULL) {
     queue->head = new_node;

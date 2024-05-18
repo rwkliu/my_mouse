@@ -7,4 +7,5 @@ typedef struct node_t {
     struct node_t *next;
     struct node_t *prev;
 }   node;
+node *node_new(int row, int col, int distance, node *next, node *prev);
 #endif
