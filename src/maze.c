@@ -7,6 +7,7 @@
 #include "my_readline.h"
 #include "queue.h"
 #include "coord_array.h"
+#include "hash_table.h"
 
 #define NUM_DIRECTIONS 4
 
@@ -141,31 +142,35 @@ int validate_maze(maze_s *maze) {
 }
 
 void solve_maze(maze_s *maze) {
-    coord_array *visited = coord_array_new();
     queue_t *queue = queue_new();
     node *current = NULL;
-    node *end = NULL;
-    int direction[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    int direction[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; // Up, right, down, left
     queue = queue_enqueue(queue, maze->start_row, maze->start_col, 0, NULL);
-    coord_array_add(maze->start_row, maze->start_col, visited);
+    ht *paths = ht_create();
+    paths = ht_set(paths, coord_new(maze->start_row, maze->start_col), NULL);
 
     while (queue->head) {
         current = queue_dequeue(&queue);
         int curr_row = current->row;
         int curr_col = current->col;
         int curr_dist = current->distance;
+        coord curr_coord = {curr_row, curr_col};
 
+        // Trace the path starting from the end
         if (curr_row == maze->end_row && curr_col == maze->end_col) {
             printf("%s\n", maze->header);
-            end = current;
+
+            coord *end = &curr_coord;
             while (end != NULL) {
                 int row = end->row;
                 int col = end->col;
 
-                if ((row != maze->start_row || col != maze->start_col) && (row != maze->end_row || col != maze->end_col)) {
+                if ((row != maze->start_row || col != maze->start_col) && \
+                        (row != maze->end_row || col != maze->end_col)
+                ) {
                     maze->maze[end->row][end->col] = 'o';
                 }
-                end = end->prev;
+                end = ht_get(paths, end);
             }
             print_maze(maze);
             printf("%d STEPS\n", curr_dist);
@@ -173,25 +178,28 @@ void solve_maze(maze_s *maze) {
             break;
         }
 
+        // Look in 4 directions of the current coordinate, adding it to the queue
+        // and paths if the new coordinate doesn't go out of bounds, encounter a
+        // wall, or has not been visited
         for (int i = 0; i < NUM_DIRECTIONS; i++) {
             int new_row = curr_row + direction[i][0];
             int new_col = curr_col + direction[i][1];
-
+            coord curr_coord = {new_row, new_col};
             if (0 <= new_row && \
                     new_row < maze->row && \
                     0 <= new_col && \
                     new_col < maze->col && \
                     maze->maze[new_row][new_col] != '*' && \
-                    !coord_array_contains(new_row, new_col, visited)
+                    !ht_has_key(paths, &curr_coord)
             ) {
-                node *new_current = node_new(curr_row, curr_col, curr_dist, current->next, current->prev);
-                queue = queue_enqueue(queue, new_row, new_col, curr_dist + 1, new_current);
-                coord_array_add(new_row, new_col, visited);
+                queue = queue_enqueue(queue, new_row, new_col, curr_dist + 1, NULL);
+                paths = ht_set(paths, coord_new(new_row, new_col), coord_new(curr_row, curr_col));
             }
         }
         free(current);
     }
+
     queue_free(queue);
-    coord_array_free(visited);
+    ht_free(paths);
     free_maze(maze);
 }
