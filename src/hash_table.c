@@ -52,3 +52,12 @@ ht *ht_set(ht *table, coord *key, coord *value) {
 
     return table;
 }
+
+void ht_print(ht *table) {
+    ht_entry *entry_ptr = table->entries;
+
+    while (entry_ptr) {
+        printf("key: %d, %d value: %d %d\n", entry_ptr->key->row, entry_ptr->key->col, entry_ptr->value->row, entry_ptr->value->col);
+        entry_ptr = entry_ptr->next;
+    }
+}
