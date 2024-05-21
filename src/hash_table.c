@@ -47,9 +47,6 @@ ht_entry *key_in_table(ht *table, coord *key) {
 // Adds key-value coord struct pair to table if the key doesn't exist; otherwise
 // change the existing value to the new value
 ht *ht_set(ht *table, coord *key, coord *value) {
-    if (value == NULL) {
-        return NULL;
-    }
 
     ht_entry *exist_entry = NULL;
     if ((exist_entry = key_in_table(table, key))) {
@@ -86,16 +83,21 @@ coord *ht_get(ht *table, coord *key) {
     if ((exist_entry = key_in_table(table, key))) {
         return exist_entry->value;
     } else {
-        fprintf(stderr, "Key not found\n");
         return NULL;
     }
 }
 
+// Prints all key-value pairs
 void ht_print(ht *table) {
     ht_entry *entry_ptr = table->entries;
 
     while (entry_ptr) {
-        printf("key: %d, %d value: %d %d\n", entry_ptr->key->row, entry_ptr->key->col, entry_ptr->value->row, entry_ptr->value->col);
+        printf("key: %d, %d ", entry_ptr->key->row, entry_ptr->key->col);
+        if (entry_ptr->value == NULL) {
+            printf("value: NULL\n");
+        } else {
+            printf("value: %d, %d\n", entry_ptr->value->row, entry_ptr->value->col);
+        }
         entry_ptr = entry_ptr->next;
     }
 }
