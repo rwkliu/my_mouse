@@ -87,6 +87,19 @@ coord *ht_get(ht *table, coord *key) {
     }
 }
 
+int ht_has_key(ht *table, coord *key) {
+    if (key == NULL) {
+        return 0;
+    }
+
+    ht_entry *exist_entry = NULL;
+    if ((exist_entry = key_in_table(table, key))) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 // Prints all key-value pairs
 void ht_print(ht *table) {
     ht_entry *entry_ptr = table->entries;

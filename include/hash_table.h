@@ -18,5 +18,6 @@ void ht_free(ht *table);
 ht *ht_set(ht *table, coord *key, coord *value);
 coord *ht_get(ht *table, coord *key);
 void ht_print(ht *table);
+int ht_has_key(ht *table, coord *key);
 
 #endif
