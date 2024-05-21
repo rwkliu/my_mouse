@@ -2,27 +2,53 @@
 #include <stdlib.h>
 #include "hash_table.h"
 
-#define INITIAL_CAPACITY 16
 ht *ht_create() {
     ht *table = malloc(sizeof(ht));
     if (table == NULL) {
         return NULL;
     }
     table->length = 0;
-    table->capacity = INITIAL_CAPACITY;
+    table->entries = NULL;
+    table->end = NULL;
 
-    table->entries = calloc(table->capacity, sizeof(ht_entry));
-    if (table->entries == NULL) {
-        free(table);
-        return NULL;
-    }
     return table;
 }
 
 void ht_free(ht *table) {
-    for (int i = 0; i < table->capacity; i++) {
-        free(table->entries[i].key);
+    if (table == NULL) {
+        return;
     }
-    free(table->entries);
+
+    ht_entry *entry_ptr = table->entries;
+    ht_entry *entry_to_delete = table->entries;
+
+    while (entry_ptr) {
+        entry_ptr = entry_ptr->next;
+        free(entry_to_delete->key);
+        free(entry_to_delete->value);
+        free(entry_to_delete);
+        entry_to_delete = entry_ptr;
+    }
     free(table);
+}
+
+
+ht *ht_set(ht *table, coord *key, coord *value) {
+    if (value == NULL) {
+        return NULL;
+    }
+    ht_entry *new_entry = malloc(sizeof(ht_entry));
+    new_entry->key = key;
+    new_entry->value = value;
+    new_entry->next = NULL;
+
+    if (table->end == NULL) {
+        table->entries = new_entry;
+        table->end = new_entry;
+    } else {
+        table->end->next = new_entry;
+        table->end = new_entry;
+    }
+
+    return table;
 }
