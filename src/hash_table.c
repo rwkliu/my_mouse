@@ -72,6 +72,21 @@ ht *ht_set(ht *table, coord *key, coord *value) {
     return table;
 }
 
+coord *ht_get(ht *table, coord *key) {
+    if (key == NULL) {
+        fprintf(stderr, "No key\n");
+        return NULL;
+    }
+
+    ht_entry *exist_entry = NULL;
+    if ((exist_entry = key_in_table(table, key))) {
+        return exist_entry->value;
+    } else {
+        fprintf(stderr, "Key not found\n");
+        return NULL;
+    }
+}
+
 void ht_print(ht *table) {
     ht_entry *entry_ptr = table->entries;
 

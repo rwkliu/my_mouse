@@ -16,6 +16,7 @@ typedef struct ht {
 ht *ht_create();
 void ht_free(ht *table);
 ht *ht_set(ht *table, coord *key, coord *value);
+coord *ht_get(ht *table, coord *key);
 void ht_print(ht *table);
 
 #endif
