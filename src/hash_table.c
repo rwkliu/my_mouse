@@ -32,22 +32,41 @@ void ht_free(ht *table) {
     free(table);
 }
 
+ht_entry *key_in_table(ht *table, coord *key) {
+    ht_entry *entry_ptr = table->entries;
+
+    while (entry_ptr) {
+        if (entry_ptr->key->row == key->row && entry_ptr->key->col == key->col) {
+            return entry_ptr;
+        }
+        entry_ptr = entry_ptr->next;
+    }
+    return NULL;
+}
 
 ht *ht_set(ht *table, coord *key, coord *value) {
     if (value == NULL) {
         return NULL;
     }
-    ht_entry *new_entry = malloc(sizeof(ht_entry));
-    new_entry->key = key;
-    new_entry->value = value;
-    new_entry->next = NULL;
 
-    if (table->end == NULL) {
-        table->entries = new_entry;
-        table->end = new_entry;
+    ht_entry *exist_entry = NULL;
+    if ((exist_entry = key_in_table(table, key))) {
+        free(key);
+        free(exist_entry->value);
+        exist_entry->value = value;
     } else {
-        table->end->next = new_entry;
-        table->end = new_entry;
+        ht_entry *new_entry = malloc(sizeof(ht_entry));
+        new_entry->key = key;
+        new_entry->value = value;
+        new_entry->next = NULL;
+
+        if (table->end == NULL) {
+            table->entries = new_entry;
+            table->end = new_entry;
+        } else {
+            table->end->next = new_entry;
+            table->end = new_entry;
+        }
     }
 
     return table;
