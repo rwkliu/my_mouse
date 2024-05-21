@@ -44,6 +44,8 @@ ht_entry *key_in_table(ht *table, coord *key) {
     return NULL;
 }
 
+// Adds key-value coord struct pair to table if the key doesn't exist; otherwise
+// change the existing value to the new value
 ht *ht_set(ht *table, coord *key, coord *value) {
     if (value == NULL) {
         return NULL;
@@ -72,6 +74,8 @@ ht *ht_set(ht *table, coord *key, coord *value) {
     return table;
 }
 
+// Return the struct coord value associated with the key; otherwise return NULL
+// and print error message to stderr
 coord *ht_get(ht *table, coord *key) {
     if (key == NULL) {
         fprintf(stderr, "No key\n");
