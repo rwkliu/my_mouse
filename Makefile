@@ -25,7 +25,7 @@ OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
 # The final build step
 $(TARGET_EXEC): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+	$(CC) $(OBJS) -o $@
 
 # Build step for C source 
 $(BUILD_DIR)/%.c.o: %.c
